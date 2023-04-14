@@ -74,6 +74,7 @@ public class App extends PApplet {
         // load config
         JSONObject conf = loadJSONObject(new File(this.configPath));
 
+        Background.drawBackground(this);
     }
 
     /**
@@ -116,6 +117,7 @@ public class App extends PApplet {
             player2Time -= 1;
 
         }
+
         Sidebar.drawTimers(this, player1Time, player2Time);
         time += 1;
     }
