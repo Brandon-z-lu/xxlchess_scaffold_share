@@ -44,6 +44,8 @@ public class App extends PApplet {
     private int player2Time = TIMER_START;
     private int lastUpdateTime;
 
+    private int time = 0;
+
     public App() {
         this.configPath = "config.json";
     }
@@ -102,19 +104,19 @@ public class App extends PApplet {
      * Draw all elements in the game by current frame.
      */
     public void draw() {
-
+        this.background(0);
         Background.drawBackground(this);
         // TODO: dynamic drawing
         // This should be a dynamic class because we're passing in stuff
 
         // Update and draw timers
-        int currentTime = millis();
-        if (currentTime - lastUpdateTime >= 1000) { // Check if 1 second has passed
-            player1Time--; // Decrement player1's timer
-            player2Time--; // Decrement player2's timer
-            lastUpdateTime = currentTime; // Update the last update time
+        if (time % FPS == 0) {
+            player1Time -= 1;
+            player2Time -= 1;
+
         }
         Sidebar.drawTimers(this, player1Time, player2Time);
+        time += 1;
     }
 
     public static void main(String[] args) {

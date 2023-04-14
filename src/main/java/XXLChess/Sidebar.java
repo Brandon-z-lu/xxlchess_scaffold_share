@@ -14,17 +14,17 @@ public class Sidebar {
     }
 
     public static void drawTimers(App app, int player1Time, int player2Time) {
-        Background.drawSideBar(app);
-
+        //Background.drawSideBar(app);
         app.textAlign(PApplet.CENTER, PApplet.CENTER);
         app.textSize(24);
+
 
         // Draw the timer for Player 1 in the upper-right corner
         String player1TimeString = formatTime(player1Time);
         int x1 = App.WIDTH - App.SIDEBAR / 2;
         int y1 = App.HEIGHT / 4;
         app.text(player1TimeString, x1, y1);
-        y1 += 3;
+       //y1 += 3;
 
         // Draw the timer for Player 2 in the lower-right corner
         String player2TimeString = formatTime(player2Time);
