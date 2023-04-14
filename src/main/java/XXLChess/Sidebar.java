@@ -1,6 +1,7 @@
 package XXLChess;
 
 import processing.core.PApplet;
+import XXLChess.Background;
 
 public class Sidebar {
 
@@ -13,6 +14,8 @@ public class Sidebar {
     }
 
     public static void drawTimers(App app, int player1Time, int player2Time) {
+        Background.drawSideBar(app);
+
         app.textAlign(PApplet.CENTER, PApplet.CENTER);
         app.textSize(24);
 

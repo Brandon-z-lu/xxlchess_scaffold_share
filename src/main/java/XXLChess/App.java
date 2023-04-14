@@ -40,9 +40,9 @@ public class App extends PApplet {
      */
     // Add timer variables for each player
     private int TIMER_START = 3600;
-    // private int player1Time = TIMER_START;
-    // private int player2Time = TIMER_START;
-    // private int lastUpdateTime;
+    private int player1Time = TIMER_START;
+    private int player2Time = TIMER_START;
+    private int lastUpdateTime;
 
     public App() {
         this.configPath = "config.json";
@@ -53,7 +53,6 @@ public class App extends PApplet {
      */
     public void settings() {
         size(WIDTH, HEIGHT);
-        Background.drawBackground(this);
     }
 
     /**
@@ -104,19 +103,18 @@ public class App extends PApplet {
      */
     public void draw() {
 
-        
+        Background.drawBackground(this);
         // TODO: dynamic drawing
-        // // This should be a dynamic class because we're passing in stuff
-        // Background aBackground = new Background();
-        // aBackground.drawDynamic(this);
-        // // Update and draw timers
-        // int currentTime = millis();
-        // if (currentTime - lastUpdateTime >= 1000) { // Check if 1 second has passed
-        //     player1Time--; // Decrement player1's timer
-        //     player2Time--; // Decrement player2's timer
-        //     lastUpdateTime = currentTime; // Update the last update time
-        // }
-        // Sidebar.drawTimers(this, player1Time, player2Time);
+        // This should be a dynamic class because we're passing in stuff
+
+        // Update and draw timers
+        int currentTime = millis();
+        if (currentTime - lastUpdateTime >= 1000) { // Check if 1 second has passed
+            player1Time--; // Decrement player1's timer
+            player2Time--; // Decrement player2's timer
+            lastUpdateTime = currentTime; // Update the last update time
+        }
+        Sidebar.drawTimers(this, player1Time, player2Time);
     }
 
     public static void main(String[] args) {
