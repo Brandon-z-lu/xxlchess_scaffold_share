@@ -44,8 +44,6 @@ public class App extends PApplet {
     private int player2Time = TIMER_START;
     private int lastUpdateTime;
 
-    private int time = 0;
-
     public App() {
         this.configPath = "config.json";
     }
@@ -108,21 +106,30 @@ public class App extends PApplet {
      * Draw all elements in the game by current frame.
      */
     public void draw() {
-        this.fill(189, 186, 190);
-        this.rect(-1, -1, App.WIDTH + 2, App.HEIGHT + 2);
-        Background.drawBackground(this);
-        // TODO: dynamic drawing
-        // This should be a dynamic class because we're passing in stuff
-
         // Update and draw timers
-        if (time % FPS == 0) {
-            player1Time -= 1;
-            player2Time -= 1;
+        int currentTime = millis();
+        if (currentTime - lastUpdateTime >= 1000) { // Check if 1 second has passed
+            // Update `lastUpdateTime` first, because `drawBackground()` and `drawTimers()` 
+            // takes time and may incur inaccuracy
+            lastUpdateTime = currentTime;
 
+            
+            background(205); // Clear the screen so that the timer doesn't overlap
+            Background.drawBackground(this); // Redraw the `background` after it's cleared
+
+            player1Time--; // Decrement player1's timer
+            player2Time--; // Decrement player2's timer
+            Sidebar.drawTimers(this, player1Time, player2Time);
         }
-
-        Sidebar.drawTimers(this, player1Time, player2Time);
-        time += 1;
+        /*
+         * Another way to track change in time: use an iterator and increment when `draw()` is called
+         * Discussion:
+         * 1. Advantage: 
+         * kick of the timer at exactly the moment when `draw()` is called
+         * 2. Disadvantage: subject to the power of the computer; 
+         * if the computer runs too slow, the framerate is decreased,
+         * thus it can be inaccurate
+         */
     }
 
     public static void main(String[] args) {
