@@ -64,9 +64,6 @@ public class App extends PApplet {
     public void setup() {
         frameRate(FPS);
 
-        // Initialize the last update time
-        lastUpdateTime = millis();
-
         // Load images during setup
 
         // PImage spr = loadImage("src/main/resources/XXLChess/"+...);
@@ -74,7 +71,13 @@ public class App extends PApplet {
         // load config
         JSONObject conf = loadJSONObject(new File(this.configPath));
 
+        // Background
         Background.drawBackground(this);
+        // Timer are update in `draw()` only when necessary
+        Sidebar.drawTimers(this, player1Time, player2Time);
+
+        // Initialize the last update time
+        lastUpdateTime = millis();
     }
 
     /**
