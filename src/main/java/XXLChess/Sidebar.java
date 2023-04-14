@@ -23,6 +23,7 @@ public class Sidebar {
         String player1TimeString = formatTime(player1Time);
         int x1 = App.WIDTH - App.SIDEBAR / 2;
         int y1 = App.HEIGHT / 4;
+        app.fill(255);
         app.text(player1TimeString, x1, y1);
        //y1 += 3;
 
@@ -30,6 +31,7 @@ public class Sidebar {
         String player2TimeString = formatTime(player2Time);
         int x2 = App.WIDTH - App.SIDEBAR / 2;
         int y2 = 3 * App.HEIGHT / 4;
+        app.fill(255);
         app.text(player2TimeString, x2, y2);
     }
 }

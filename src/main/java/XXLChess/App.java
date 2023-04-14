@@ -104,7 +104,8 @@ public class App extends PApplet {
      * Draw all elements in the game by current frame.
      */
     public void draw() {
-        this.background(0);
+        this.fill(189, 186, 190);
+        this.rect(-1, -1, App.WIDTH + 2, App.HEIGHT + 2);
         Background.drawBackground(this);
         // TODO: dynamic drawing
         // This should be a dynamic class because we're passing in stuff
