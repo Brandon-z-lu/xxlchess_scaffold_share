@@ -1,7 +1,7 @@
 package XXLChess;
 
-//import org.reflections.Reflections;
-//import org.reflections.scanners.Scanners;
+// import org.reflections.Reflections;
+// import org.reflections.scanners.Scanners;
 import processing.core.PApplet;
 import processing.core.PImage;
 import processing.data.JSONObject;
@@ -18,6 +18,10 @@ import java.util.*;
 import XXLChess.Background;
 import XXLChess.Sidebar;
 
+/*
+ * App.java begins
+ */
+
 public class App extends PApplet {
 
     /*
@@ -31,19 +35,38 @@ public class App extends PApplet {
     public static int WIDTH = CELLSIZE * BOARD_WIDTH + SIDEBAR;
     public static int HEIGHT = BOARD_WIDTH * CELLSIZE; // Also applies to the `SideBar`
 
+    /*
+     * Board configuration
+     */
     public static final int FPS = 60;
 
     public String configPath;
+    public String layout;
+    public String playerColour;
+    public double pieceMovementSpeed;
+    public int maxMovementTime;
+    public int playerSeconds;
+    public int playerIncrement;
+    public int cpuSeconds;
+    public int cpuIncrement;
 
     /*
-     * Timer
+     * Timer initialization
      */
-    // Add timer variables for each player
-    private int TIMER_START = 3600;
-    private int player1Time = TIMER_START;
-    private int player2Time = TIMER_START;
-    private int lastUpdateTime;
+    public int playerTimeLeft;
+    public int AITimeLeft;
+    public Boolean isInPlayerRound;
+    public int framesLapsed;
 
+    /*
+     * Checkerboard, chess pieces, and tilesarrayObj
+     */
+    protected TilesArray tilesarrayObj;
+    protected AI AIobj;
+
+    /*
+     * Load `Config.json`
+     */
     public App() {
         this.configPath = "config.json";
     }
@@ -55,27 +78,79 @@ public class App extends PApplet {
         size(WIDTH, HEIGHT);
     }
 
+    public void readJson() {
+        JSONObject config = loadJSONObject("config.json");
+
+        layout = config.getString("layout");
+        playerColour = config.getString("player_colour");
+        pieceMovementSpeed = config.getDouble("piece_movement_speed");
+        maxMovementTime = config.getInt("max_movement_time");
+
+        JSONObject playerTimeControls =
+                config.getJSONObject("time_controls").getJSONObject("player");
+        playerSeconds = playerTimeControls.getInt("seconds");
+        playerIncrement = playerTimeControls.getInt("increment");
+
+        JSONObject cpuTimeControls = config.getJSONObject("time_controls").getJSONObject("cpu");
+        cpuSeconds = cpuTimeControls.getInt("seconds");
+        cpuIncrement = cpuTimeControls.getInt("increment");
+
+        System.out.println("json Config loaded:");
+        System.out.println("Layout: " + layout);
+        System.out.println("Player colour: " + playerColour);
+        System.out.println("Piece movement speed: " + pieceMovementSpeed);
+        System.out.println("Max movement time: " + maxMovementTime);
+        System.out.println("Player time controls - seconds: " + playerSeconds + ", increment: "
+                + playerIncrement);
+        System.out.println(
+                "CPU time controls - seconds: " + cpuSeconds + ", increment: " + cpuIncrement);
+        System.out.println("---\n");
+
+
+        if (!((this.playerColour).equals("white") || (this.playerColour).equals("black"))) {
+            System.out.println("Error: Invalid player colour");
+            // stop the program and print stacktraces
+            return;
+        }
+    }
+
     /**
-     * Load all resources such as images. Initialise the elements such as the
-     * player, enemies and map elements.
+     * Load all resources such as images. Initialise the elements such as the player, enemies and
+     * map elements.
      */
     public void setup() {
-        frameRate(FPS);
-
-        // Load images during setup
-
-        // PImage spr = loadImage("src/main/resources/XXLChess/"+...);
+        this.framesLapsed = 0;
+        this.frameRate(FPS);
 
         // load config
-        JSONObject conf = loadJSONObject(new File(this.configPath));
+        readJson();
 
-        // Background
-        Background.drawBackground(this);
-        // Timer are update in `draw()` only when necessary
-        Sidebar.drawTimers(this, player1Time, player2Time);
+        // playerTimeLeft
+        this.playerTimeLeft = this.playerSeconds;
+        this.AITimeLeft = this.cpuSeconds;
+        if (this.playerColour.equals("white")) {
+            this.isInPlayerRound = true;
+        } else if (this.playerColour.equals("black")) {
+            this.isInPlayerRound = false;
+        } else {
+            System.out.println("Error: playerColour is neither white nor black");
+            return;
+        }
 
-        // Initialize the last update time
-        lastUpdateTime = millis();
+        // print out isInPlayerRound
+        System.out.println("\n---isInPlayerRound: " + this.isInPlayerRound + "---\n");
+
+        // Load images during setup
+        tilesarrayObj = new TilesArray(this);
+
+        // Initialize the AI
+        AIobj = new AI(this);
+
+        // Initialize timers drawing
+        /*
+         * Human is guaranteed to be at the bottom of the board
+         */
+        Sidebar.drawTimers(this, AITimeLeft, playerTimeLeft);
     }
 
     /**
@@ -88,13 +163,87 @@ public class App extends PApplet {
     /**
      * Receive key released signal from the keyboard.
      */
-    public void keyReleased() {
+    public void keyReleased() {}
 
+    public Tile getTile(int x, int y) {
+        int[] ans = new int[2];
+        int x_idx = Math.floorDiv(x, App.CELLSIZE);
+        int y_idx = Math.floorDiv(y, App.CELLSIZE);
+        ans[0] = x_idx;
+        ans[1] = y_idx;
+
+        return this.tilesarrayObj.tile2DArray[y_idx][x_idx];
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
+        // Get the coordinates
+        // in relativity with, in the JavaDoc, the components
+        int x = e.getX();
+        int y = e.getY();
+        // System.out.println(x + ", " + y);
 
+        /*
+         * - Sidebar (outside the boundary): force reset
+         * 
+         * - Within the boundary
+         * 
+         * - Is ableToMove green:
+         * 
+         * move()
+         * 
+         * - Not selected blue:
+         * 
+         * - force reset
+         * 
+         * - Is chessPiece
+         * 
+         * - click again
+         * 
+         * - Not is chessPiece
+         * 
+         * - Do nothing
+         */
+
+        if ((x < App.BOARD_WIDTH * App.CELLSIZE) && (y < App.BOARD_WIDTH * App.CELLSIZE)) {
+            // Get the tile
+            Tile activeTile = this.getTile(x, y);
+
+            // If the tile is able to move blue
+            if (activeTile.isAbleMoveBlue) {
+                this.tilesarrayObj.move(this.tilesarrayObj.visitedTile, activeTile);
+
+                // this.tilesarrayObj.tilearrayForceReset();
+
+                if (this.isInPlayerRound)
+                    this.AIobj.AIAction();
+
+                if (this.isInPlayerRound)
+                    this.playerTimeLeft += this.playerIncrement;
+                else
+                    this.AITimeLeft += this.cpuIncrement;
+
+                this.isInPlayerRound = !this.isInPlayerRound;
+                /***********************************/
+            } else {
+
+                // Force reset
+                this.tilesarrayObj.tilearrayForceReset(); // Including resetting visitedTileArray
+
+                // If the tile is a chessPiece
+                if (activeTile instanceof ChessPiece) {
+
+                    ChessPiece activeTileChessPiece = (ChessPiece) activeTile;
+
+                    if ((this.isInPlayerRound && activeTileChessPiece.isHuman)
+                            || (!this.isInPlayerRound) && (!activeTileChessPiece.isHuman)) {
+                        this.tilesarrayObj.tilearraySelected(activeTileChessPiece, this);
+                    }
+                }
+            }
+        } else {
+            this.tilesarrayObj.tilearrayForceReset(); // Including resetting visitedTileArray
+        }
     }
 
     @Override
@@ -106,34 +255,28 @@ public class App extends PApplet {
      * Draw all elements in the game by current frame.
      */
     public void draw() {
-        // Update and draw timers
-        int currentTime = millis();
-        if (currentTime - lastUpdateTime >= 1000) { // Check if 1 second has passed
-            // Update `lastUpdateTime` first, because `drawBackground()` and `drawTimers()` 
-            // takes time and may incur inaccuracy
-            lastUpdateTime = currentTime;
-
-            
-            background(205); // Clear the screen so that the timer doesn't overlap
-            Background.drawBackground(this); // Redraw the `background` after it's cleared
-
-            player1Time--; // Decrement player1's timer
-            player2Time--; // Decrement player2's timer
-            Sidebar.drawTimers(this, player1Time, player2Time);
+        // Tick the timer
+        if (this.framesLapsed % FPS == 0) {
+            if (this.isInPlayerRound)
+                this.playerTimeLeft -= 1;
+            else
+                this.AITimeLeft -= 1;
         }
-        /*
-         * Another way to track change in time: use an iterator and increment when `draw()` is called
-         * Discussion:
-         * 1. Advantage: 
-         * kick of the timer at exactly the moment when `draw()` is called
-         * 2. Disadvantage: subject to the power of the computer; 
-         * if the computer runs too slow, the framerate is decreased,
-         * thus it can be inaccurate
-         */
+
+        Background.refreshFrame(this);
+
+        tilesarrayObj.drawCheckerboard(this);
+
+        // Sidebar timer
+        Sidebar.drawTimers(this, AITimeLeft, playerTimeLeft);
+        framesLapsed += 1;
     }
 
     public static void main(String[] args) {
         PApplet.main("XXLChess.App");
     }
 
+    public TilesArray getTilesArrayObj() {
+        return this.tilesarrayObj;
+    }
 }

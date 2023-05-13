@@ -1,11 +1,16 @@
 package XXLChess;
 
 import processing.core.PApplet;
-import XXLChess.Background;
 
-public class Sidebar {
+// public String playerColour;
+// public double pieceMovementSpeed;
+// public int maxMovementTime;
+// public int playerSeconds;
+// public int playerIncrement;
+// public int cpuSeconds;
+// public int cpuIncrement;
 
-    private static final int TIMER_START = 3600; // 60 minutes in seconds
+class Sidebar {
 
     private static String formatTime(int seconds) {
         int minutes = seconds / 60;
@@ -21,7 +26,7 @@ public class Sidebar {
         String player1TimeString = formatTime(player1Time);
         int x1 = App.WIDTH - App.SIDEBAR / 2;
         int y1 = App.HEIGHT / 4;
-        app.fill(255, 0, 0);
+        app.fill(250, 250, 250);
         app.text(player1TimeString, x1, y1);
         y1 += 3;
 
@@ -29,7 +34,7 @@ public class Sidebar {
         String player2TimeString = formatTime(player2Time);
         int x2 = App.WIDTH - App.SIDEBAR / 2;
         int y2 = 3 * App.HEIGHT / 4;
-        app.fill(255, 0, 0);
+        app.fill(250, 250, 250);
         app.text(player2TimeString, x2, y2);
     }
 }
