@@ -24,12 +24,12 @@ public abstract class ChessPiece extends Tile {
         return this.pieceName;
     }
 
-    @Override
-    public String toString() {
-        String ans = "PieceID: " + this.pieceID + " Coor: (" + this.x_idx + ", " + this.y_idx + ")"
-                + "\n";
-        return ans;
-    }
+    // @Override
+    // public String toString() {
+    //     String ans = "PieceID: " + this.pieceID + " Coor: (" + this.x_idx + ", " + this.y_idx + ")"
+    //             + "\n";
+    //     return ans;
+    // }
 
     // Constructor
     public ChessPiece(char pieceID, int x_idx, int y_idx, App app) {

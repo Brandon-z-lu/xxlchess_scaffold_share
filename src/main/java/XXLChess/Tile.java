@@ -121,11 +121,11 @@ class Tile {
 		app.text("y:" + Integer.toString(this.y_idx + 1), x + 10, y + 20);
 	}
 
-	@Override
-	public String toString() {
-		String ans = "Coor: (" + this.x_idx + ", " + this.y_idx + ");";
-		return ans;
-	}
+	// @Override
+	// public String toString() {
+	// 	String ans = "Coor: (" + this.x_idx + ", " + this.y_idx + ");";
+	// 	return ans;
+	// }
 
 	protected void setAbleCaptureLRed() {
 		this.isAbleCaptureLRed = true;
