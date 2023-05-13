@@ -28,11 +28,11 @@ public class AI extends TilesArray {
         for (int i = 0; i < this.AIAvailableChessMovesList.size(); i++) {
             System.out.println(this.AIAvailableChessMovesList.get(i));
 
-            try {
-                Thread.sleep(10);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            // try {
+            //     Thread.sleep(10);
+            // } catch (InterruptedException e) {
+            //     e.printStackTrace();
+            // }
         }
 
         this.chooseAIBestMove();
