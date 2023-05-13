@@ -254,7 +254,8 @@ public class TilesArray {
             System.out.println("this.tile2DArray[activeTileTo.y_idx][activeTileTo.x_idx]: "
                     + this.tile2DArray[activeTileTo.y_idx][activeTileTo.x_idx]);
 
-            this.tile2DArray[activeTileTo.y_idx][activeTileTo.x_idx] = vistedTileFrom;
+            this.tile2DArray[activeTileTo.y_idx][activeTileTo.x_idx] = this.initChessPiece(
+                    visitedChessPieceFrom.pieceID, activeTileTo.x_idx, activeTileTo.y_idx, app);
 
             System.out.print("2===\n");
             System.out.println("this.tile2DArray[vistedTileFrom.y_idx][vistedTileFrom.x_idx]: "
@@ -267,17 +268,6 @@ public class TilesArray {
             this.tile2DArray[vistedTileFrom.y_idx][vistedTileFrom.x_idx] =
                     new Tile(vistedTileFrom.x_idx, vistedTileFrom.y_idx);
 
-            System.out.print("3===\n");
-            System.out.println("this.tile2DArray[vistedTileFrom.y_idx][vistedTileFrom.x_idx]: "
-                    + this.tile2DArray[vistedTileFrom.y_idx][vistedTileFrom.x_idx]);
-            System.out.println("vistedTileFrom: " + vistedTileFrom);
-            System.out.println("activeTileTo: " + activeTileTo);
-            System.out.println("this.tile2DArray[activeTileTo.y_idx][activeTileTo.x_idx]: "
-                    + this.tile2DArray[activeTileTo.y_idx][activeTileTo.x_idx]);
-
-            this.tile2DArray[activeTileTo.y_idx][activeTileTo.x_idx].y_idx = activeTileTo.y_idx;
-            this.tile2DArray[activeTileTo.y_idx][activeTileTo.x_idx].x_idx = activeTileTo.x_idx;
-
             System.out.print("4===\n");
             System.out.println("this.tile2DArray[vistedTileFrom.y_idx][vistedTileFrom.x_idx]: "
                     + this.tile2DArray[vistedTileFrom.y_idx][vistedTileFrom.x_idx]);
@@ -286,16 +276,6 @@ public class TilesArray {
             System.out.println("this.tile2DArray[activeTileTo.y_idx][activeTileTo.x_idx]: "
                     + this.tile2DArray[activeTileTo.y_idx][activeTileTo.x_idx]);
 
-            this.tile2DArray[vistedTileFrom.y_idx][vistedTileFrom.x_idx] =
-                    new Tile(vistedTileFrom.x_idx, vistedTileFrom.y_idx);
-
-            System.out.print("5===\n");
-            System.out.println("this.tile2DArray[vistedTileFrom.y_idx][vistedTileFrom.x_idx]: "
-                    + this.tile2DArray[vistedTileFrom.y_idx][vistedTileFrom.x_idx]);
-            System.out.println("vistedTileFrom: " + vistedTileFrom);
-            System.out.println("activeTileTo: " + activeTileTo);
-            System.out.println("this.tile2DArray[activeTileTo.y_idx][activeTileTo.x_idx]: "
-                    + this.tile2DArray[activeTileTo.y_idx][activeTileTo.x_idx]);
         }
 
         this.app.tilesarrayObj.tilearrayForceReset();
