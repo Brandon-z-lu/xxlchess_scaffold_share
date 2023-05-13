@@ -243,7 +243,7 @@ public class TilesArray {
         if ((vistedTileFrom.x_idx != 99) && (vistedTileFrom.y_idx != 99)
                 && (vistedTileFrom instanceof ChessPiece)) {
 
-            System.out.print("===\n");
+            System.out.print("1===\n");
             System.out.println("this.tile2DArray[vistedTileFrom.y_idx][vistedTileFrom.x_idx]: "
                     + this.tile2DArray[vistedTileFrom.y_idx][vistedTileFrom.x_idx]);
             System.out.println("vistedTileFrom: " + vistedTileFrom);
@@ -253,7 +253,7 @@ public class TilesArray {
 
             this.tile2DArray[activeTileTo.y_idx][activeTileTo.x_idx] = vistedTileFrom;
 
-            System.out.print("===\n");
+            System.out.print("2===\n");
             System.out.println("this.tile2DArray[vistedTileFrom.y_idx][vistedTileFrom.x_idx]: "
                     + this.tile2DArray[vistedTileFrom.y_idx][vistedTileFrom.x_idx]);
             System.out.println("vistedTileFrom: " + vistedTileFrom);
@@ -264,7 +264,7 @@ public class TilesArray {
             this.tile2DArray[vistedTileFrom.y_idx][vistedTileFrom.x_idx] =
                     new Tile(vistedTileFrom.x_idx, vistedTileFrom.y_idx);
 
-            System.out.print("===\n");
+            System.out.print("3===\n");
             System.out.println("this.tile2DArray[vistedTileFrom.y_idx][vistedTileFrom.x_idx]: "
                     + this.tile2DArray[vistedTileFrom.y_idx][vistedTileFrom.x_idx]);
             System.out.println("vistedTileFrom: " + vistedTileFrom);
@@ -275,7 +275,7 @@ public class TilesArray {
             this.tile2DArray[activeTileTo.y_idx][activeTileTo.x_idx].y_idx = activeTileTo.y_idx;
             this.tile2DArray[activeTileTo.y_idx][activeTileTo.x_idx].x_idx = activeTileTo.x_idx;
 
-            System.out.print("===\n");
+            System.out.print("4===\n");
             System.out.println("this.tile2DArray[vistedTileFrom.y_idx][vistedTileFrom.x_idx]: "
                     + this.tile2DArray[vistedTileFrom.y_idx][vistedTileFrom.x_idx]);
             System.out.println("vistedTileFrom: " + vistedTileFrom);
@@ -286,7 +286,7 @@ public class TilesArray {
             this.tile2DArray[vistedTileFrom.y_idx][vistedTileFrom.x_idx] =
                     new Tile(vistedTileFrom.x_idx, vistedTileFrom.y_idx);
 
-            System.out.print("===\n");
+            System.out.print("5===\n");
             System.out.println("this.tile2DArray[vistedTileFrom.y_idx][vistedTileFrom.x_idx]: "
                     + this.tile2DArray[vistedTileFrom.y_idx][vistedTileFrom.x_idx]);
             System.out.println("vistedTileFrom: " + vistedTileFrom);
