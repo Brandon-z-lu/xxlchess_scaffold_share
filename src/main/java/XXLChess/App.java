@@ -1,22 +1,8 @@
 package XXLChess;
 
-// import org.reflections.Reflections;
-// import org.reflections.scanners.Scanners;
 import processing.core.PApplet;
-import processing.core.PImage;
 import processing.data.JSONObject;
-import processing.data.JSONArray;
-import processing.core.PFont;
 import processing.event.MouseEvent;
-
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.TimeUnit;
-import java.awt.Font;
-import java.io.*;
-import java.util.*;
-
-import XXLChess.Background;
-import XXLChess.Sidebar;
 
 /*
  * App.java begins

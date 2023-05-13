@@ -2,9 +2,6 @@ package XXLChess;
 
 import java.io.*;
 import java.util.*;
-import javax.rmi.CORBA.Tie;
-import javax.swing.text.html.parser.Element;
-import processing.core.*;
 
 /*
  * Design: - TilesArray(App app) constructor - drawCheckerBoard(App app) draw method
@@ -240,12 +237,13 @@ public class TilesArray {
         if ((vistedTileFrom.x_idx != 99) && (vistedTileFrom.y_idx != 99)
                 && (vistedTileFrom instanceof ChessPiece)) {
 
+            this.tile2DArray[activeTileTo.y_idx][activeTileTo.x_idx] =
+                    this.tile2DArray[vistedTileFrom.y_idx][vistedTileFrom.x_idx];
+            this.tile2DArray[activeTileTo.y_idx][activeTileTo.x_idx].y_idx = activeTileTo.y_idx;
+            this.tile2DArray[activeTileTo.y_idx][activeTileTo.x_idx].x_idx = activeTileTo.x_idx;
+
             this.tile2DArray[vistedTileFrom.y_idx][vistedTileFrom.x_idx] =
                     new Tile(vistedTileFrom.x_idx, vistedTileFrom.y_idx);
-
-            vistedTileFrom.y_idx = activeTileTo.y_idx;
-            vistedTileFrom.x_idx = activeTileTo.x_idx;
-            this.tile2DArray[activeTileTo.y_idx][activeTileTo.x_idx] = vistedTileFrom;
         }
 
         this.app.tilesarrayObj.tilearrayForceReset();

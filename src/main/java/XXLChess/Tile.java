@@ -4,7 +4,7 @@ package XXLChess;
  * Tile.java begins
  */
 
-import java.util.*;
+
 
 class Tile {
 	public int x; // Pixel Value

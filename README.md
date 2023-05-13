@@ -2,6 +2,23 @@
 
 [toc]
 
+## Problem
+
+You will see three commits
+
+- Working version with move()
+
+- disable sleep
+- items disappearing
+
+Experiment with the `Working version with move()` commit, my AI pick the index 0 and you can see the knight in the (x=2,y=1) got repeatedly picked up.
+
+I should have eliminated knight in the `AIChessPiecesList`.
+
+You can opt for `diable sleep` commit to skip the sleep lag.
+
+For `items disappearing`, I was trying to streamline the process by revamping the whole `move()` in `TilesArray`, but then items are disappearing. 
+
 ## TODO
 
 - [X] AI basic

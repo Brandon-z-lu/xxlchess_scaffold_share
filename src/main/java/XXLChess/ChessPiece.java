@@ -1,11 +1,7 @@
 package XXLChess;
 
-import java.lang.reflect.Array;
-import java.security.cert.TrustAnchor;
 import java.util.*;
 import processing.core.PImage;
-
-import XXLChess.*;
 
 public abstract class ChessPiece extends Tile {
     protected char pieceID;
