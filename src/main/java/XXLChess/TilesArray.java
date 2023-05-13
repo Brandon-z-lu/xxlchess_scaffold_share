@@ -231,19 +231,68 @@ public class TilesArray {
 
         System.out.println("---\nmove");
 
+
+        // ChessPiece newTileTo = this.initChessPiece(visitedChessPieceFrom.pieceID,
+        // activeTileTo.x_idx, activeTileTo.y_idx, app);
+        // newTileTo.isPastMoveYellow = true;
+        // this.tile2DArray[activeTileTo.y_idx][activeTileTo.x_idx] = newTileTo;
+
         // force reset
         this.app.tilesarrayObj.tilearrayForceReset();
 
         if ((vistedTileFrom.x_idx != 99) && (vistedTileFrom.y_idx != 99)
                 && (vistedTileFrom instanceof ChessPiece)) {
 
-            this.tile2DArray[activeTileTo.y_idx][activeTileTo.x_idx] =
-                    this.tile2DArray[vistedTileFrom.y_idx][vistedTileFrom.x_idx];
+            System.out.print("===\n");
+            System.out.println("this.tile2DArray[vistedTileFrom.y_idx][vistedTileFrom.x_idx]: "
+                    + this.tile2DArray[vistedTileFrom.y_idx][vistedTileFrom.x_idx]);
+            System.out.println("vistedTileFrom: " + vistedTileFrom);
+            System.out.println("activeTileTo: " + activeTileTo);
+            System.out.println("this.tile2DArray[activeTileTo.y_idx][activeTileTo.x_idx]: "
+                    + this.tile2DArray[activeTileTo.y_idx][activeTileTo.x_idx]);
+
+            this.tile2DArray[activeTileTo.y_idx][activeTileTo.x_idx] = vistedTileFrom;
+
+            System.out.print("===\n");
+            System.out.println("this.tile2DArray[vistedTileFrom.y_idx][vistedTileFrom.x_idx]: "
+                    + this.tile2DArray[vistedTileFrom.y_idx][vistedTileFrom.x_idx]);
+            System.out.println("vistedTileFrom: " + vistedTileFrom);
+            System.out.println("activeTileTo: " + activeTileTo);
+            System.out.println("this.tile2DArray[activeTileTo.y_idx][activeTileTo.x_idx]: "
+                    + this.tile2DArray[activeTileTo.y_idx][activeTileTo.x_idx]);
+
             this.tile2DArray[vistedTileFrom.y_idx][vistedTileFrom.x_idx] =
                     new Tile(vistedTileFrom.x_idx, vistedTileFrom.y_idx);
 
+            System.out.print("===\n");
+            System.out.println("this.tile2DArray[vistedTileFrom.y_idx][vistedTileFrom.x_idx]: "
+                    + this.tile2DArray[vistedTileFrom.y_idx][vistedTileFrom.x_idx]);
+            System.out.println("vistedTileFrom: " + vistedTileFrom);
+            System.out.println("activeTileTo: " + activeTileTo);
+            System.out.println("this.tile2DArray[activeTileTo.y_idx][activeTileTo.x_idx]: "
+                    + this.tile2DArray[activeTileTo.y_idx][activeTileTo.x_idx]);
+
             this.tile2DArray[activeTileTo.y_idx][activeTileTo.x_idx].y_idx = activeTileTo.y_idx;
             this.tile2DArray[activeTileTo.y_idx][activeTileTo.x_idx].x_idx = activeTileTo.x_idx;
+
+            System.out.print("===\n");
+            System.out.println("this.tile2DArray[vistedTileFrom.y_idx][vistedTileFrom.x_idx]: "
+                    + this.tile2DArray[vistedTileFrom.y_idx][vistedTileFrom.x_idx]);
+            System.out.println("vistedTileFrom: " + vistedTileFrom);
+            System.out.println("activeTileTo: " + activeTileTo);
+            System.out.println("this.tile2DArray[activeTileTo.y_idx][activeTileTo.x_idx]: "
+                    + this.tile2DArray[activeTileTo.y_idx][activeTileTo.x_idx]);
+
+            this.tile2DArray[vistedTileFrom.y_idx][vistedTileFrom.x_idx] =
+                    new Tile(vistedTileFrom.x_idx, vistedTileFrom.y_idx);
+
+            System.out.print("===\n");
+            System.out.println("this.tile2DArray[vistedTileFrom.y_idx][vistedTileFrom.x_idx]: "
+                    + this.tile2DArray[vistedTileFrom.y_idx][vistedTileFrom.x_idx]);
+            System.out.println("vistedTileFrom: " + vistedTileFrom);
+            System.out.println("activeTileTo: " + activeTileTo);
+            System.out.println("this.tile2DArray[activeTileTo.y_idx][activeTileTo.x_idx]: "
+                    + this.tile2DArray[activeTileTo.y_idx][activeTileTo.x_idx]);
 
         }
 
