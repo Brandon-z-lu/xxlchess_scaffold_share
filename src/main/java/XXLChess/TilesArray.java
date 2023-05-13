@@ -239,11 +239,12 @@ public class TilesArray {
 
             this.tile2DArray[activeTileTo.y_idx][activeTileTo.x_idx] =
                     this.tile2DArray[vistedTileFrom.y_idx][vistedTileFrom.x_idx];
+            this.tile2DArray[vistedTileFrom.y_idx][vistedTileFrom.x_idx] =
+                    new Tile(vistedTileFrom.x_idx, vistedTileFrom.y_idx);
+
             this.tile2DArray[activeTileTo.y_idx][activeTileTo.x_idx].y_idx = activeTileTo.y_idx;
             this.tile2DArray[activeTileTo.y_idx][activeTileTo.x_idx].x_idx = activeTileTo.x_idx;
 
-            this.tile2DArray[vistedTileFrom.y_idx][vistedTileFrom.x_idx] =
-                    new Tile(vistedTileFrom.x_idx, vistedTileFrom.y_idx);
         }
 
         this.app.tilesarrayObj.tilearrayForceReset();
