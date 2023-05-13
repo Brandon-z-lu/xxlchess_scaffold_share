@@ -215,8 +215,8 @@ public class App extends PApplet {
 
                 // this.tilesarrayObj.tilearrayForceReset();
 
-                if (this.isInPlayerRound)
-                    this.AIobj.AIAction();
+                // if (this.isInPlayerRound)
+                //     this.AIobj.AIAction();
 
                 if (this.isInPlayerRound)
                     this.playerTimeLeft += this.playerIncrement;
@@ -265,11 +265,11 @@ public class App extends PApplet {
 
         Background.refreshFrame(this);
 
-        tilesarrayObj.drawCheckerboard(this);
+        this.tilesarrayObj.drawCheckerboard(this);
 
         // Sidebar timer
         Sidebar.drawTimers(this, AITimeLeft, playerTimeLeft);
-        framesLapsed += 1;
+        this.framesLapsed += 1;
     }
 
     public static void main(String[] args) {

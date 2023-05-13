@@ -233,81 +233,39 @@ public class TilesArray {
     public void move(Tile vistedTileFrom, Tile activeTileTo) {
 
         System.out.println("---\nmove");
-        
+
         // force reset
         this.app.tilesarrayObj.tilearrayForceReset();
 
         if ((vistedTileFrom.x_idx != 99) && (vistedTileFrom.y_idx != 99)
                 && (vistedTileFrom instanceof ChessPiece)) {
-            ChessPiece visitedChessPieceFrom = (ChessPiece) vistedTileFrom;
 
-            if (vistedTileFrom instanceof Pawn) {
-                if ((activeTileTo.y_idx == 7 && !visitedChessPieceFrom.isHuman)
-                        || (activeTileTo.y_idx == 5 && visitedChessPieceFrom.isHuman)) {
-                    ChessPiece newTileTo;
-                    if (Character.isUpperCase(visitedChessPieceFrom.pieceID)) {
-                        newTileTo = new Queen('Q', activeTileTo.x_idx, activeTileTo.y_idx, app);
-                    } else {
-                        newTileTo = new Queen('q', activeTileTo.x_idx, activeTileTo.y_idx, app);
-                    }
-                    newTileTo.isPastMoveYellow = true;
-                    this.tile2DArray[activeTileTo.y_idx][activeTileTo.x_idx] = newTileTo;
-                    if (newTileTo.isAI) {
-                        this.app.tilesarrayObj.AIChessPiecesList.add(newTileTo);
-                    } else {
-                        this.app.tilesarrayObj.HumanChessPiecesList.add(newTileTo);
-                    }
-                } else {
-                    Pawn newTileTo = new Pawn(visitedChessPieceFrom.pieceID, activeTileTo.x_idx,
-                            activeTileTo.y_idx, app);
-                    newTileTo.setPieceMovesOneStep();
-                    newTileTo.isPastMoveYellow = true;
-                    this.tile2DArray[activeTileTo.y_idx][activeTileTo.x_idx] = newTileTo;
-                    if (newTileTo.isAI) {
-                        this.app.tilesarrayObj.AIChessPiecesList.add(newTileTo);
-                    } else {
-                        this.app.tilesarrayObj.HumanChessPiecesList.add(newTileTo);
-                    }
-                }
-            } else {
-                ChessPiece newTileTo = this.initChessPiece(visitedChessPieceFrom.pieceID,
-                        activeTileTo.x_idx, activeTileTo.y_idx, app);
-                newTileTo.isPastMoveYellow = true;
-                this.tile2DArray[activeTileTo.y_idx][activeTileTo.x_idx] = newTileTo;
-                if (newTileTo.isAI) {
-                    this.app.tilesarrayObj.AIChessPiecesList.add(newTileTo);
-                } else {
-                    this.app.tilesarrayObj.HumanChessPiecesList.add(newTileTo);
-                }
-            }
-            Tile newTileFrom = new Tile(vistedTileFrom.x_idx, vistedTileFrom.y_idx);
-            newTileFrom.isPastMoveYellow = true;
-            this.tile2DArray[vistedTileFrom.y_idx][vistedTileFrom.x_idx] = newTileFrom;
-        } else {
-            vistedTileFrom = activeTileTo;
+            this.tile2DArray[vistedTileFrom.y_idx][vistedTileFrom.x_idx] =
+                    new Tile(vistedTileFrom.x_idx, vistedTileFrom.y_idx);
+
+            vistedTileFrom.y_idx = activeTileTo.y_idx;
+            vistedTileFrom.x_idx = activeTileTo.x_idx;
+            this.tile2DArray[activeTileTo.y_idx][activeTileTo.x_idx] = vistedTileFrom;
         }
 
-        System.out.println("AIChessPiecesList.size() before: "
-                + this.app.tilesarrayObj.AIChessPiecesList.size());
+        this.app.tilesarrayObj.tilearrayForceReset();
 
-        // Find activeTileTo in the AIChessPiecesList and HumanChessPiecesList
-        for (int i = 0; i < this.AIChessPiecesList.size(); i++) {
-            ChessPiece aChessPiece = this.AIChessPiecesList.get(i);
-            if ((aChessPiece.x_idx == vistedTileFrom.x_idx)
-                    && (aChessPiece.y_idx == vistedTileFrom.y_idx)) {
-                System.out.println("Deleted one in AIChessPiecesList");
-                System.out.println("AIChessPiecesList.size() after: "
-                        + this.app.tilesarrayObj.AIChessPiecesList.size());
-                break;
-            }
-        }
-        for (int j = 0; j < this.HumanChessPiecesList.size(); j++) {
-            ChessPiece bChessPiece = this.HumanChessPiecesList.get(j);
-            if ((bChessPiece.x_idx == vistedTileFrom.x_idx)
-                    && (bChessPiece.y_idx == vistedTileFrom.y_idx)) {
-                this.HumanChessPiecesList.remove(j);
-                System.out.println("Deleted one in HumanChessPiecesList");
-                break;
+        this.printString();
+    }
+
+    public void printString() {
+        for (int y_idx = 0; y_idx < Math.min(tile2DArray.length, App.BOARD_WIDTH); y_idx++) {
+            for (int x_idx = 0; x_idx < Math.min(tile2DArray[y_idx].length,
+                    App.BOARD_WIDTH); x_idx++) {
+                Tile aTile = tile2DArray[y_idx][x_idx];
+
+                if (aTile instanceof ChessPiece) {
+                    // print out (x_idx, y_idx)
+                    System.out.printf("Index from tile2DArray (%d, %d): ", x_idx + 1, y_idx + 1);
+                    ChessPiece aChessPiece = (ChessPiece) aTile;
+                    System.out.printf(" For the piece itself %c: (%d, %d)\n", aChessPiece.pieceID,
+                            aChessPiece.x_idx + 1, aChessPiece.y_idx + 1);
+                }
             }
         }
     }

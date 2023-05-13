@@ -7,11 +7,11 @@ package XXLChess;
 import java.util.*;
 
 class Tile {
-	protected int x; // Pixel Value
-	protected int y; // Pixel Value
+	public int x; // Pixel Value
+	public int y; // Pixel Value
 
-	protected int x_idx; // From left to right 1~16
-	protected int y_idx; // From up to down 1~16
+	public int x_idx; // From left to right 1~16
+	public int y_idx; // From up to down 1~16
 
 	protected boolean isWhite;
 	protected boolean isChessPiece;
