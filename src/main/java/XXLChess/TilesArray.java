@@ -227,77 +227,8 @@ public class TilesArray {
         return this.tile2DArray;
     }
 
-    public void move(Tile vistedTileFrom, Tile activeTileTo) {
-
-        System.out.println("---\nmove");
-
-
-        // ChessPiece newTileTo = this.initChessPiece(visitedChessPieceFrom.pieceID,
-        // activeTileTo.x_idx, activeTileTo.y_idx, app);
-        // newTileTo.isPastMoveYellow = true;
-        // this.tile2DArray[activeTileTo.y_idx][activeTileTo.x_idx] = newTileTo;
-
-        // force reset
-        this.app.tilesarrayObj.tilearrayForceReset();
-
-        if ((vistedTileFrom.x_idx != 99) && (vistedTileFrom.y_idx != 99)
-                && (vistedTileFrom instanceof ChessPiece)) {
-
-            ChessPiece visitedChessPieceFrom = (ChessPiece) vistedTileFrom;
-
-            System.out.print("1===\n");
-            System.out.println("this.tile2DArray[vistedTileFrom.y_idx][vistedTileFrom.x_idx]: "
-                    + this.tile2DArray[vistedTileFrom.y_idx][vistedTileFrom.x_idx]);
-            System.out.println("visitedChessPieceFrom copy: " + visitedChessPieceFrom);
-            System.out.println("vistedTileFrom: " + vistedTileFrom);
-            System.out.println("activeTileTo: " + activeTileTo);
-            System.out.println("this.tile2DArray[activeTileTo.y_idx][activeTileTo.x_idx]: "
-                    + this.tile2DArray[activeTileTo.y_idx][activeTileTo.x_idx]);
-
-            this.tile2DArray[activeTileTo.y_idx][activeTileTo.x_idx] = this.initChessPiece(
-                    visitedChessPieceFrom.pieceID, activeTileTo.x_idx, activeTileTo.y_idx, app);
-
-            System.out.print("2===\n");
-            System.out.println("this.tile2DArray[vistedTileFrom.y_idx][vistedTileFrom.x_idx]: "
-                    + this.tile2DArray[vistedTileFrom.y_idx][vistedTileFrom.x_idx]);
-            System.out.println("vistedTileFrom: " + vistedTileFrom);
-            System.out.println("activeTileTo: " + activeTileTo);
-            System.out.println("this.tile2DArray[activeTileTo.y_idx][activeTileTo.x_idx]: "
-                    + this.tile2DArray[activeTileTo.y_idx][activeTileTo.x_idx]);
-
-            this.tile2DArray[vistedTileFrom.y_idx][vistedTileFrom.x_idx] =
-                    new Tile(vistedTileFrom.x_idx, vistedTileFrom.y_idx);
-
-            System.out.print("4===\n");
-            System.out.println("this.tile2DArray[vistedTileFrom.y_idx][vistedTileFrom.x_idx]: "
-                    + this.tile2DArray[vistedTileFrom.y_idx][vistedTileFrom.x_idx]);
-            System.out.println("vistedTileFrom: " + vistedTileFrom);
-            System.out.println("activeTileTo: " + activeTileTo);
-            System.out.println("this.tile2DArray[activeTileTo.y_idx][activeTileTo.x_idx]: "
-                    + this.tile2DArray[activeTileTo.y_idx][activeTileTo.x_idx]);
-
-        }
-
-        this.app.tilesarrayObj.tilearrayForceReset();
-
-        this.printString();
-    }
-
-    public void printString() {
-        for (int y_idx = 0; y_idx < Math.min(tile2DArray.length, App.BOARD_WIDTH); y_idx++) {
-            for (int x_idx = 0; x_idx < Math.min(tile2DArray[y_idx].length,
-                    App.BOARD_WIDTH); x_idx++) {
-                Tile aTile = tile2DArray[y_idx][x_idx];
-
-                if (aTile instanceof ChessPiece) {
-                    // print out (x_idx, y_idx)
-                    System.out.printf("Index from tile2DArray (%d, %d): ", x_idx + 1, y_idx + 1);
-                    ChessPiece aChessPiece = (ChessPiece) aTile;
-                    System.out.printf(" For the piece itself %c: (%d, %d)\n", aChessPiece.pieceID,
-                            aChessPiece.x_idx + 1, aChessPiece.y_idx + 1);
-                }
-            }
-        }
+    public void move(Tile visitedTileFrom, Tile activeTileTo) {
+        this.app.movemotionObj.move(visitedTileFrom, activeTileTo);
     }
 }
 

@@ -48,6 +48,7 @@ public class App extends PApplet {
      * Checkerboard, chess pieces, and tilesarrayObj
      */
     protected TilesArray tilesarrayObj;
+    protected MoveMotion movemotionObj;
     protected AI AIobj;
 
     /*
@@ -128,6 +129,7 @@ public class App extends PApplet {
 
         // Load images during setup
         tilesarrayObj = new TilesArray(this);
+        movemotionObj = new MoveMotion(this);
 
         // Initialize the AI
         AIobj = new AI(this);
