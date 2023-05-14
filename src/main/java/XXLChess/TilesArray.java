@@ -105,13 +105,11 @@ public class TilesArray {
             aTile = new Pawn(pieceID, x_idx, y_idx, app);
         }
 
-        if (aTile instanceof ChessPiece) {
-            ChessPiece aChessPiece = (ChessPiece) aTile;
-            if (aTile.isHuman) {
-                this.HumanChessPiecesList.add(aChessPiece);
-            } else {
-                this.AIChessPiecesList.add(aChessPiece);
-            }
+        ChessPiece aChessPiece = (ChessPiece) aTile;
+        if (aTile.isHuman) {
+            this.HumanChessPiecesList.add(aChessPiece);
+        } else {
+            this.AIChessPiecesList.add(aChessPiece);
         }
 
         return aTile;
@@ -194,7 +192,7 @@ public class TilesArray {
     }
 
     // Mark selected tile and the related ones
-    public void tilearraySelected(Tile activeTile, App app) {
+    public void tilearraySelected(Tile activeTile) {
 
         activeTile.isSelectedGreen = true;
         if (activeTile instanceof ChessPiece) {
@@ -204,7 +202,7 @@ public class TilesArray {
 
             this.visitedTile = activeTileChessPiece;
         } else {
-            System.out.println("Error: clicking\n" + activeTile.toString());
+            System.out.println("Error: clicking\n" + activeTile);
         }
     }
 
@@ -220,11 +218,6 @@ public class TilesArray {
                 aTile.isSelectedGreen = false;
             }
         }
-    }
-
-    // Get private attributes
-    public Tile[][] gettile2DArray() {
-        return this.tile2DArray;
     }
 
     public void move(Tile visitedTileFrom, Tile activeTileTo) {

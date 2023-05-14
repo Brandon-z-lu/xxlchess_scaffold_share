@@ -154,12 +154,8 @@ public class App extends PApplet {
     public void keyReleased() {}
 
     public Tile getTile(int x, int y) {
-        int[] ans = new int[2];
         int x_idx = Math.floorDiv(x, App.CELLSIZE);
         int y_idx = Math.floorDiv(y, App.CELLSIZE);
-        ans[0] = x_idx;
-        ans[1] = y_idx;
-
         return this.tilesarrayObj.tile2DArray[y_idx][x_idx];
     }
 
@@ -225,7 +221,7 @@ public class App extends PApplet {
 
                     if ((this.isInPlayerRound && activeTileChessPiece.isHuman)
                             || (!this.isInPlayerRound) && (!activeTileChessPiece.isHuman)) {
-                        this.tilesarrayObj.tilearraySelected(activeTileChessPiece, this);
+                        this.tilesarrayObj.tilearraySelected(activeTileChessPiece);
                     }
                 }
             }

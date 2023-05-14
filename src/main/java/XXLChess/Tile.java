@@ -14,7 +14,6 @@ class Tile {
 	public int y_idx; // From up to down 1~16
 
 	protected boolean isWhite;
-	protected boolean isChessPiece;
 
 	/*
 	 * Six attributes in which isAbleCaptureLRed and isAbleMoveBlue are related
@@ -44,12 +43,8 @@ class Tile {
 		 */
 		// If the parity of the x_idx and y_idx are the same:
 		// then light brown
-		if (((this.x_idx % 2 == 0) && (this.y_idx % 2 == 0))
-				|| ((this.x_idx % 2 == 1) && (this.y_idx % 2 == 1))) {
-			this.isLightBrown = true;
-		} else {
-			this.isLightBrown = false;
-		}
+		this.isLightBrown = ((this.x_idx % 2 == 0) && (this.y_idx % 2 == 0))
+				|| ((this.x_idx % 2 == 1) && (this.y_idx % 2 == 1));
 		this.isDarkBrown = !isLightBrown;
 
 		/*
@@ -117,15 +112,9 @@ class Tile {
 		// Setting the text size
 		app.textSize(10);
 		// Draw the indices on the tile
-		app.text("x:" + Integer.toString(this.x_idx + 1), x + 10, y + 5);
-		app.text("y:" + Integer.toString(this.y_idx + 1), x + 10, y + 20);
+		app.text("x:" + (this.x_idx + 1), x + 10, y + 5);
+		app.text("y:" + (this.y_idx + 1), x + 10, y + 20);
 	}
-
-	// @Override
-	// public String toString() {
-	// 	String ans = "Coor: (" + this.x_idx + ", " + this.y_idx + ");";
-	// 	return ans;
-	// }
 
 	protected void setAbleCaptureLRed() {
 		this.isAbleCaptureLRed = true;

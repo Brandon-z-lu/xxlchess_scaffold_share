@@ -13,17 +13,17 @@ public class AI extends TilesArray {
     // Find all available moves for the AI
     public void AIAction() {
 
-        AIAvailableChessMovesList = new ArrayList<ChessMove>();
+        AIAvailableChessMovesList = new ArrayList<>();
 
         // Update the available moves list for each chesspiece of the AIChessPiecesList
-        for (int i = 0; i < this.AIChessPiecesList.size(); i++) {
-            this.AIChessPiecesList.get(i).MovesShowOrReset("AIshow");
+        for (ChessPiece chessPiece : this.AIChessPiecesList) {
+            chessPiece.MovesShowOrReset("AIshow");
         }
 
         // Showing all the moves
         // Iterate through the AIAvailableChessMovesList
-        for (int i = 0; i < this.AIAvailableChessMovesList.size(); i++) {
-            System.out.println(this.AIAvailableChessMovesList.get(i));
+        for (ChessMove chessMove : this.AIAvailableChessMovesList) {
+            System.out.println(chessMove);
 
             try {
                 Thread.sleep(10);
