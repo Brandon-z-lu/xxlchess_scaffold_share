@@ -105,7 +105,7 @@ public class TilesArray {
             aTile = new Pawn(pieceID, x_idx, y_idx, app);
         }
 
-        ChessPiece aChessPiece = (ChessPiece) aTile;
+        ChessPiece aChessPiece = aTile;
         if (aTile.isHuman) {
             this.HumanChessPiecesList.add(aChessPiece);
         } else {

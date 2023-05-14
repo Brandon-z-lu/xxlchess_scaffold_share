@@ -1,7 +1,7 @@
 package XXLChess;
 
 public class MoveMotion extends TilesArray {
-    
+
     public MoveMotion(App app) {
         super(app);
     }
@@ -16,26 +16,54 @@ public class MoveMotion extends TilesArray {
         if (isTileValidAndChessPiece(visitedTileFrom)) {
             ChessPiece visitedChessPieceFrom = (ChessPiece) visitedTileFrom;
 
+            this.updateChessPiecesListNoPromotion(visitedChessPieceFrom, activeTileTo);
+
             if (visitedTileFrom instanceof Pawn) {
-                handlePawnMovement(visitedTileFrom, visitedChessPieceFrom, activeTileTo);
+                handlePawnMovement(visitedChessPieceFrom, activeTileTo);
             } else {
-                handleNonPawnMovement(visitedTileFrom, visitedChessPieceFrom, activeTileTo);
+                handleNonPawnMovement(visitedChessPieceFrom, activeTileTo);
             }
 
             Tile newTileFrom = new Tile(visitedTileFrom.x_idx, visitedTileFrom.y_idx);
             newTileFrom.isPastMoveYellow = true;
-            this.app.tilesarrayObj.tile2DArray[visitedTileFrom.y_idx][visitedTileFrom.x_idx] = newTileFrom;
-        } else {
-            visitedTileFrom = activeTileTo;
+            this.app.tilesarrayObj.tile2DArray[visitedTileFrom.y_idx][visitedTileFrom.x_idx] =
+                    newTileFrom;
         }
     }
+
+    public void updateChessPiecesListNoPromotion(ChessPiece visitedTileFrom, Tile activeTileTo) {
+        // Todo:
+        // Update the AIChessPiecesList and HumanChessPiecesList accordingly
+
+        // Iterate through this.app.tilesarrayObj.AIChessPiecesList and HumanChessPiecesList
+        // We remove the activeTileTo from the list
+
+        if (activeTileTo instanceof ChessPiece) {
+            ChessPiece pieceToBeRemoved = (ChessPiece) activeTileTo;
+
+            // If pieceToBeRemoved is an AI piece, remove it from AIChessPiecesList
+            if (pieceToBeRemoved.isAI) {
+                this.app.tilesarrayObj.AIChessPiecesList.remove(pieceToBeRemoved);
+            } else {
+                // Else, remove it from HumanChessPiecesList
+                this.app.tilesarrayObj.HumanChessPiecesList.remove(pieceToBeRemoved);
+            }
+        }
+
+        // Remove the visitedTile from from the list
+        if (visitedTileFrom.isAI) {
+            this.app.tilesarrayObj.AIChessPiecesList.remove(visitedTileFrom);
+        } else {
+            this.app.tilesarrayObj.HumanChessPiecesList.remove(visitedTileFrom);
+        }
+    }
+
 
     private boolean isTileValidAndChessPiece(Tile tile) {
         return (tile.x_idx != 99) && (tile.y_idx != 99) && (tile instanceof ChessPiece);
     }
 
-    private void handlePawnMovement(Tile visitedTileFrom, ChessPiece visitedChessPieceFrom,
-            Tile activeTileTo) {
+    private void handlePawnMovement(ChessPiece visitedChessPieceFrom, Tile activeTileTo) {
         if (isPawnPromotion(visitedChessPieceFrom, activeTileTo)) {
             ChessPiece newTileTo = createPromotedPawn(visitedChessPieceFrom, activeTileTo);
             movePieceToTile(newTileTo, activeTileTo);
@@ -60,8 +88,7 @@ public class MoveMotion extends TilesArray {
         return newTileTo;
     }
 
-    private void handleNonPawnMovement(Tile visitedTileFrom, ChessPiece visitedChessPieceFrom,
-            Tile activeTileTo) {
+    private void handleNonPawnMovement(ChessPiece visitedChessPieceFrom, Tile activeTileTo) {
         ChessPiece newTileTo = this.initChessPiece(visitedChessPieceFrom.pieceID,
                 activeTileTo.x_idx, activeTileTo.y_idx, app);
         newTileTo.isPastMoveYellow = true;

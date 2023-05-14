@@ -37,6 +37,7 @@ public class AI extends TilesArray {
 
     public void chooseAIBestMove() {
         // First, we select a chesspiece at random from
+
         // Random rand = new Random();
         // int randomIndex = rand.nextInt(this.AIAvailableChessMovesList.size());
 

@@ -28,7 +28,6 @@ class Sidebar {
         int y1 = App.HEIGHT / 4;
         app.fill(250, 250, 250);
         app.text(player1TimeString, x1, y1);
-        y1 += 3;
 
         // Draw the timer for Player 2 in the lower-right corner
         String player2TimeString = formatTime(player2Time);

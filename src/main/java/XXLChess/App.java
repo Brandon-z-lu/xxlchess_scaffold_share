@@ -197,10 +197,10 @@ public class App extends PApplet {
             if (activeTile.isAbleMoveBlue) {
                 this.tilesarrayObj.move(this.tilesarrayObj.visitedTile, activeTile);
 
-                // this.tilesarrayObj.tilearrayForceReset();
+                this.tilesarrayObj.tilearrayForceReset();
 
-                // if (this.isInPlayerRound)
-                //     this.AIobj.AIAction();
+                if (this.isInPlayerRound)
+                    this.AIobj.AIAction();
 
                 if (this.isInPlayerRound)
                     this.playerTimeLeft += this.playerIncrement;
@@ -210,10 +210,7 @@ public class App extends PApplet {
                 this.isInPlayerRound = !this.isInPlayerRound;
                 /***********************************/
             } else {
-
-                // Force reset
                 this.tilesarrayObj.tilearrayForceReset(); // Including resetting visitedTileArray
-
                 // If the tile is a chessPiece
                 if (activeTile instanceof ChessPiece) {
 
