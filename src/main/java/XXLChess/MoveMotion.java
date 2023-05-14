@@ -10,13 +10,13 @@ public class MoveMotion extends TilesArray {
 
         System.out.println("---\nmove");
 
-        // force reset
+        this.prettyPrintTile2dArray();
+
+        this.updateChessPiecesList();
         this.app.tilesarrayObj.tilearrayForceReset();
 
         if (isTileValidAndChessPiece(visitedTileFrom)) {
             ChessPiece visitedChessPieceFrom = (ChessPiece) visitedTileFrom;
-
-            this.updateChessPiecesListNoPromotion(visitedChessPieceFrom, activeTileTo);
 
             if (visitedTileFrom instanceof Pawn) {
                 handlePawnMovement(visitedChessPieceFrom, activeTileTo);
@@ -31,31 +31,47 @@ public class MoveMotion extends TilesArray {
         }
     }
 
+    public void prettyPrintTile2dArray() {
+        System.out.println("--------------------------------------------------------");
+        for (int y_idx = 0; y_idx < Math.min(this.app.tilesarrayObj.tile2DArray.length,
+                App.BOARD_WIDTH); y_idx++) {
+            System.out.print("|");
+            for (int x_idx = 0; x_idx < Math.min(this.app.tilesarrayObj.tile2DArray[y_idx].length,
+                    App.BOARD_WIDTH); x_idx++) {
+                Tile aTile = this.app.tilesarrayObj.tile2DArray[y_idx][x_idx];
+                if (aTile instanceof ChessPiece) {
+                    ChessPiece aChessPiece = (ChessPiece) aTile;
+                    System.out.print(" " + aChessPiece.pieceID + " ");
+                } else {
+                    System.out.print("   ");
+                }
+                System.out.print("|");
+            }
+            System.out.println("\n--------------------------------------------------------");
+        }
+    }
+
+
+    public void updateChessPiecesList() {
+        for (int y_idx = 0; y_idx < Math.min(this.app.tilesarrayObj.tile2DArray.length,
+                App.BOARD_WIDTH); y_idx++) {
+            for (int x_idx = 0; x_idx < Math.min(this.app.tilesarrayObj.tile2DArray[y_idx].length,
+                    App.BOARD_WIDTH); x_idx++) {
+                Tile aTile = this.app.tilesarrayObj.tile2DArray[y_idx][x_idx];
+                if (aTile instanceof ChessPiece) {
+                    ChessPiece aChessPiece = (ChessPiece) aTile;
+                }
+            }
+        }
+    }
+
     public void updateChessPiecesListNoPromotion(ChessPiece visitedTileFrom, Tile activeTileTo) {
-        // Todo:
-        // Update the AIChessPiecesList and HumanChessPiecesList accordingly
-
-        // Iterate through this.app.tilesarrayObj.AIChessPiecesList and HumanChessPiecesList
-        // We remove the activeTileTo from the list
-
         if (activeTileTo instanceof ChessPiece) {
             ChessPiece pieceToBeRemoved = (ChessPiece) activeTileTo;
 
-            // If pieceToBeRemoved is an AI piece, remove it from AIChessPiecesList
-            if (pieceToBeRemoved.isAI) {
-                this.app.tilesarrayObj.AIChessPiecesList.remove(pieceToBeRemoved);
-            } else {
-                // Else, remove it from HumanChessPiecesList
-                this.app.tilesarrayObj.HumanChessPiecesList.remove(pieceToBeRemoved);
-            }
+
         }
 
-        // Remove the visitedTile from from the list
-        if (visitedTileFrom.isAI) {
-            this.app.tilesarrayObj.AIChessPiecesList.remove(visitedTileFrom);
-        } else {
-            this.app.tilesarrayObj.HumanChessPiecesList.remove(visitedTileFrom);
-        }
     }
 
 
@@ -97,11 +113,7 @@ public class MoveMotion extends TilesArray {
 
     private void movePieceToTile(ChessPiece newTileTo, Tile activeTileTo) {
         this.app.tilesarrayObj.tile2DArray[activeTileTo.y_idx][activeTileTo.x_idx] = newTileTo;
-        if (newTileTo.isAI) {
-            this.app.tilesarrayObj.AIChessPiecesList.add(newTileTo);
-        } else {
-            this.app.tilesarrayObj.HumanChessPiecesList.add(newTileTo);
-        }
+
     }
 
     public void printString() {

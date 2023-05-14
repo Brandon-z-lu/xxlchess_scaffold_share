@@ -24,12 +24,15 @@ public abstract class ChessPiece extends Tile {
         return this.pieceName;
     }
 
-    // @Override
-    // public String toString() {
-    //     String ans = "PieceID: " + this.pieceID + " Coor: (" + this.x_idx + ", " + this.y_idx + ")"
-    //             + "\n";
-    //     return ans;
-    // }
+    @Override
+    public String toString() {
+
+        String a = String.valueOf(this.x_idx + 1);
+        String ans = "PieceID: " + this.pieceID + " (" + String.valueOf(this.x_idx + 1) + ", " + String
+                .valueOf(this.y_idx + 1)
+                + ")" + "\n";
+        return ans;
+    }
 
     // Constructor
     public ChessPiece(char pieceID, int x_idx, int y_idx, App app) {
@@ -85,6 +88,8 @@ public abstract class ChessPiece extends Tile {
 
     protected void MovesShowOrReset(String flag) {
 
+        this.coordinates[0] = x_idx;
+        this.coordinates[1] = y_idx;
         this.coordinatesIter = Arrays.copyOf(this.coordinates, this.coordinates.length);
 
         for (this.i = 0; this.i < pieceMoves.length; this.i++) {

@@ -9,8 +9,6 @@ import java.util.*;
 public class TilesArray {
 
     protected Tile[][] tile2DArray; // [y_idx][x_idx]
-    protected ArrayList<ChessPiece> HumanChessPiecesList;
-    protected ArrayList<ChessPiece> AIChessPiecesList;
 
     protected static HashMap<Character, String[]> pieceMap = new HashMap<>();
     protected App app;
@@ -105,13 +103,6 @@ public class TilesArray {
             aTile = new Pawn(pieceID, x_idx, y_idx, app);
         }
 
-        ChessPiece aChessPiece = aTile;
-        if (aTile.isHuman) {
-            this.HumanChessPiecesList.add(aChessPiece);
-        } else {
-            this.AIChessPiecesList.add(aChessPiece);
-        }
-
         return aTile;
         /*
          * If pieceID of aTile is uppercase, then it is a black piece. Otherwise, it is a white
@@ -170,9 +161,7 @@ public class TilesArray {
 
     // Constructor
     public TilesArray(App app) {
-        HumanChessPiecesList = new ArrayList<>();
-        AIChessPiecesList = new ArrayList<>();
-
+        
         initPieceMap();
         readLevel(app);
         visitedTile = new Tile(99, 99);
