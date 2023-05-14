@@ -1,6 +1,7 @@
 package XXLChess;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class AI extends TilesArray {
 
@@ -56,11 +57,12 @@ public class AI extends TilesArray {
     public void chooseAIBestMove() {
         // First, we select a chesspiece at random from
 
-        // Random rand = new Random();
-        // int randomIndex = rand.nextInt(this.AIAvailableChessMovesList.size());
+        Random rand = new Random();
+        int randomIndex = rand.nextInt(this.AIAvailableChessMovesList.size());
 
-        this.app.tilesarrayObj.move(this.AIAvailableChessMovesList.get(0).fromChessPiece,
-                this.AIAvailableChessMovesList.get(0).toTile);
+        this.app.tilesarrayObj.move(this.AIAvailableChessMovesList.get(
+                randomIndex).fromChessPiece,
+                this.AIAvailableChessMovesList.get(randomIndex).toTile);
 
         // Including resetting visitedTileArray
         this.tilearrayForceReset();

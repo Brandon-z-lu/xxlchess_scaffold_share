@@ -12,7 +12,6 @@ public class MoveMotion extends TilesArray {
 
         this.prettyPrintTile2dArray();
 
-        this.updateChessPiecesList();
         this.app.tilesarrayObj.tilearrayForceReset();
 
         if (isTileValidAndChessPiece(visitedTileFrom)) {
@@ -50,30 +49,6 @@ public class MoveMotion extends TilesArray {
             System.out.println("\n--------------------------------------------------------");
         }
     }
-
-
-    public void updateChessPiecesList() {
-        for (int y_idx = 0; y_idx < Math.min(this.app.tilesarrayObj.tile2DArray.length,
-                App.BOARD_WIDTH); y_idx++) {
-            for (int x_idx = 0; x_idx < Math.min(this.app.tilesarrayObj.tile2DArray[y_idx].length,
-                    App.BOARD_WIDTH); x_idx++) {
-                Tile aTile = this.app.tilesarrayObj.tile2DArray[y_idx][x_idx];
-                if (aTile instanceof ChessPiece) {
-                    ChessPiece aChessPiece = (ChessPiece) aTile;
-                }
-            }
-        }
-    }
-
-    public void updateChessPiecesListNoPromotion(ChessPiece visitedTileFrom, Tile activeTileTo) {
-        if (activeTileTo instanceof ChessPiece) {
-            ChessPiece pieceToBeRemoved = (ChessPiece) activeTileTo;
-
-
-        }
-
-    }
-
 
     private boolean isTileValidAndChessPiece(Tile tile) {
         return (tile.x_idx != 99) && (tile.y_idx != 99) && (tile instanceof ChessPiece);
